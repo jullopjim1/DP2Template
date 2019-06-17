@@ -1,0 +1,7 @@
+/target
+.classpath
+.settings
+/src/main/resources/Entities.map
+.properties
+/bin
+/Entities.map

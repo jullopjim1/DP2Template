@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- La contraseña de system es intencional, no se puede acceder a esta 
+		cuenta -->
+	<bean id="userAccountSystem" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="system" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- &Administrators -->
+
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Juan Manuel" />
+		<property name="surname" value="De la Oliva Aguilar" />
+		<property name="photo"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-KUF1F8Y8PcSonTUCchWrDQhFFAr3FtkTNX7tCV5G4DeCptp6_A" />
+		<property name="phone" value="+34(655)123456789" />
+		<property name="email" value="juandelaoliva@gmail.com" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="address" value="Avenida Italia 12" />
+		<property name="VATNumber" value="75860389Y" />
+
+		<property name="userAccount" ref="userAccount1" />
+		<property name="creditCard" ref="creditcard1" />
+
+	</bean>
+
+
+
+	<!-- &creditcards -->
+
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="makeName" value="VISA" />
+		<property name="number" value="4516410092471036" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2020" />
+		<property name="CVVCode" value="110" />
+	</bean>
+
+
+	<!-- Configuration -->
+
+	<bean id="configuration" class="domain.Configuration">
+		<property name="nameSys" value="Acme Rookie Rank" />
+		<!-- https://i.ibb.co/xYkd9rX/IMG-0696.jpg https://i.ibb.co/MZ6qL84/wwwww.png -->
+		<property name="banner" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="welcomeMessageEN"
+			value="Welcome to Acme rookie Rank! We're IT rookie's favourite job marketplace!" />
+		<property name="welcomeMessageES"
+			value="¡Bienvenidos a Acme Rookie Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+		<property name="securityMessageEN"
+			value="A security fault has occurred! The system is in maintenance." />
+		<property name="securityMessageES"
+			value="¡Se ha producido un fallo de seguridad! El sistema se encuentra en mantenimiento." />
+		<property name="spamWordsEN">
+			<list>
+				<value>sex</value>
+				<value>cialis</value>
+				<value>viagra</value>
+				<value>you've been selected</value>
+				<value>one million</value>
+				<value>nigeria</value>
+				<value>SEX</value>
+				<value>CIALIS</value>
+				<value>VIAGRA</value>
+				<value>YOU'VE BEEN SELECTED</value>
+				<value>ONE MILLION</value>
+				<value>NIGERIA</value>
+			</list>
+		</property>
+		<property name="spamWordsES">
+			<list>
+				<value>sexo</value>
+				<value>cialis</value>
+				<value>viagra</value>
+				<value>has sido seleccionado</value>
+				<value>un millon</value>
+				<value>nigeria</value>
+
+				<value>SEXO</value>
+				<value>CIALIS</value>
+				<value>VIAGRA</value>
+				<value>HAS SIDO SELECCIONADO</value>
+				<value>UN MILLON</value>
+				<value>NIGERIA</value>
+			</list>
+		</property>
+		<property name="positiveWordsEN">
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+			</list>
+		</property>
+		<property name="positiveWordsES">
+			<list>
+				<value>bueno</value>
+				<value>fantastico</value>
+				<value>excelente</value>
+				<value>genial</value>
+				<value>increible</value>
+				<value>estupendo</value>
+			</list>
+		</property>
+		<property name="negativeWordsEN">
+			<list>
+				<value>not</value>
+				<value>bad</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>disaster</value>
+			</list>
+		</property>
+		<property name="negativeWordsES">
+			<list>
+				<value>no</value>
+				<value>malo</value>
+				<value>horrible</value>
+				<value>mediocre</value>
+				<value>desastroso</value>
+			</list>
+		</property>
+		<property name="cacheFinder" value="1" />
+		<property name="numResults" value="10" />
+		<property name="countryCode" value="34" />
+		<property name="vat" value="21" />
+		<property name="flatFare" value="500.00" />
+		<property name="makeName">
+			<list>
+				<value>VISA</value>
+				<value>MCARD</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+				<value>FLY</value>
+			</list>
+		</property>
+		<property name="failSystem" value="false" />
+	</bean>
+
+
+
+</beans>
