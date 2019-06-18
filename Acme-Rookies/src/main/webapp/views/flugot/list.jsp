@@ -59,14 +59,37 @@
 		</jstl:if>
 	</display:column>
 
-	<display:column titleKey="flugot.publicationDate">
-		<jstl:if test="${flugot.publicationDate == null }">
-			<spring:message code="flugot.null"></spring:message>
+	<jstl:if test="${flugot.publicationDate == null }">
+		<spring:message code="flugot.null"></spring:message>
+	</jstl:if>
+	<jstl:if test="${flugot.publicationDate != null }">
+		<jstl:if test="${flugotService.diferenciaMeses(flugot.id) < 0 }">
+			<display:column property="publicationDate"
+				titleKey="flugot.publicationDate" style="background-color:" />
 		</jstl:if>
-		<jstl:if test="${flugot.publicationDate != null }">
-			<jstl:out value="${flugot.publicationDate}"></jstl:out>
+		<jstl:if
+			test="${flugotService.diferenciaMeses(flugot.id) < 1 && flugotService.diferenciaMeses(flugot.id) >= 0  }">
+			<spring:message code="event.format.date" var="pattern" />
+			<display:column property="publicationDate"
+				titleKey="flugot.publicationDate" style="background-color:Indigo"
+				format="${pattern }" />
 		</jstl:if>
-	</display:column>
+
+		<jstl:if
+			test="${2 > flugotService.diferenciaMeses(flugot.id) && flugotService.diferenciaMeses(flugot.id) >= 1 }">
+			<spring:message code="event.format.date" var="pattern" />
+			<display:column property="publicationDate"
+				titleKey="flugot.publicationDate"
+				style="background-color:DarkSlateGrey" format="${pattern }" />
+		</jstl:if>
+
+		<jstl:if test="${flugotService.diferenciaMeses(flugot.id) >= 2 }">
+			<spring:message code="event.format.date" var="pattern" />
+			<display:column property="publicationDate"
+				titleKey="flugot.publicationDate"
+				style="background-color:PapayaWhip" format="${pattern }" />
+		</jstl:if>
+	</jstl:if>
 
 	<acme:column code="flugot.body" value="${flugot.body}" />
 

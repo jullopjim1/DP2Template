@@ -54,6 +54,7 @@ public class FlugotAuditorController extends AbstractController {
 		final List<Flugot> flugots = this.flugotService.findFlugotByAuditor(auditor.getId());
 
 		modelAndView.addObject("flugots", flugots);
+		modelAndView.addObject("flugotService", this.flugotService);
 		modelAndView.addObject("requestURI", "/flugot/auditor/list.do");
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 

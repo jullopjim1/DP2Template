@@ -136,6 +136,32 @@ public class FlugotService {
 		return this.flugotRepository.findFlugotByAuditor(auditorId);
 	}
 
+	public int diferenciaMeses(final int flugotId) {
+		int meses = 0;
+		Flugot flugot = null;
+		if (flugotId == 0)
+			meses = -1;
+		else {
+			flugot = this.findOne(flugotId);
+			if (flugot.getPublicationDate() == null)
+				meses = -1;
+			else {
+
+				final Date now = new Date();
+				final Date fechaFlugot = flugot.getPublicationDate();
+
+				final int start = (now.getYear() + 1900) * 12 + now.getMonth();
+				final int end = (fechaFlugot.getYear() + 1900) * 12 + fechaFlugot.getMonth();
+				System.out.println("start: " + start);
+				System.out.println("end: " + end);
+				meses = start - end;
+			}
+		}
+
+		System.out.println("numero de meses: " + meses);
+		return meses;
+	}
+
 	public Flugot reconstruct(final Flugot flugot, final BindingResult bindingResult) {
 		Flugot result = this.create();
 
