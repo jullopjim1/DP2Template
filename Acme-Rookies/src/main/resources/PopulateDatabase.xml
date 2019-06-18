@@ -1808,7 +1808,7 @@
 
 	<bean id="flugot1" class="domain.Flugot">
 		<property name="ticker" value="190610-AAAAA" />
-		<property name="publicationDate" value="10/06/2019 00:00" />
+		<property name="publicationDate" value="06/10/2019" />
 		<property name="body" value="TEST 1" />
 		<property name="picture"
 			value="http://raulperez.tieneblog.net/wp-content/uploads/2015/09/tux.png" />
@@ -1819,7 +1819,7 @@
 
 	<bean id="flugot2" class="domain.Flugot">
 		<property name="ticker" value="190510-AAAAA" />
-		<property name="publicationDate" value="10/05/2019 00:00" />
+		<property name="publicationDate" value="05/10/2019" />
 		<property name="body" value="TEST 2" />
 		<property name="finalMode" value="true" />
 		<property name="auditor" ref="auditor2" />
@@ -1828,7 +1828,7 @@
 
 	<bean id="flugot3" class="domain.Flugot">
 		<property name="ticker" value="190116-AAAAA" />
-		<property name="publicationDate" value="16/01/2019 00:00" />
+		<property name="publicationDate" value="04/10/2019" />
 		<property name="body" value="TEST 3" />
 		<property name="finalMode" value="true" />
 		<property name="auditor" ref="auditor1" />
@@ -1837,7 +1837,7 @@
 
 	<bean id="flugot4" class="domain.Flugot">
 		<property name="ticker" value="190110-AAAAA" />
-		<property name="publicationDate" value="10/01/2019 00:00" />
+		<property name="publicationDate" value="03/10/2019" />
 		<property name="body" value="TEST 4" />
 		<property name="finalMode" value="true" />
 		<property name="auditor" ref="auditor1" />
