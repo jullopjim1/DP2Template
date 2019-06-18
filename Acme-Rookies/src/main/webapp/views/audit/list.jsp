@@ -22,8 +22,8 @@
 
 
 
-<display:table name="audits" id="audit"
-	requestURI="audit/list.do" pagesize="${numResults}"  class="displaytag">
+<display:table name="audits" id="audit" requestURI="audit/list.do"
+	pagesize="${numResults}" class="displaytag">
 
 	<%--  Primero compruebo que es un brotherhood --%>
 	<security:authorize access="hasRole('AUDITOR')">
@@ -35,8 +35,8 @@
 			<%--  La columna que va a la vista edit de las miscellaneousRecord --%>
 			<display:column>
 				<jstl:if test="${audit.finalMode == false}">
-				<a href="audit/edit.do?auditId=${audit.id}"><spring:message
-						code="audit.edit"></spring:message></a>
+					<a href="audit/edit.do?auditId=${audit.id}"><spring:message
+							code="audit.edit"></spring:message></a>
 				</jstl:if>
 			</display:column>
 		</jstl:if>
@@ -55,14 +55,33 @@
 	<acme:column code="audit.score" value="${audit.score}"></acme:column>
 	<acme:column code="audit.finalMode" value="${audit.finalMode}"></acme:column>
 	<acme:column code="audit.text" value="${audit.text}"></acme:column>
-	
-<%-- 	<acme:column code="audit.auditor" value="${audit.auditor.name}"></acme:column>--%>
+
+	<%-- 	<acme:column code="audit.auditor" value="${audit.auditor.name}"></acme:column>--%>
 	<jstl:if test="${audit.position.title != null}">
 		<acme:column code="audit.position" value="${audit.position.title}"></acme:column>
 	</jstl:if>
 	<jstl:if test="${audit.position.title == null}">
 		<acme:column code="audit.position" value="Position nula"></acme:column>
-	</jstl:if>	
+	</jstl:if>
+
+
+
+	<security:authorize access="hasRole('AUDITOR')">
+		<display:column titleKey="flugot.list">
+			<a href="flugot/auditor/listAudit.do?auditId=${audit.id}"> <spring:message
+					code="flugot.list" />
+			</a>
+		</display:column>
+	</security:authorize>
+
+
+	<security:authorize access="hasRole('COMPANY')">
+		<display:column titleKey="flugot.list">
+			<a href="flugot/company/list.do?auditId=${audit.id}"> <spring:message
+					code="flugot.list" />
+			</a>
+		</display:column>
+	</security:authorize>
 
 
 
@@ -77,6 +96,6 @@
 
 
 <input type="button" name="back"
-		value="<spring:message code="audit.backTo"></spring:message>"
-		onclick="javascript:relativeRedir('position/list.do')" />
+	value="<spring:message code="audit.backTo"></spring:message>"
+	onclick="javascript:relativeRedir('position/list.do')" />
 <%--  Boton de creacion --%>

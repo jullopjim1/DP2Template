@@ -128,6 +128,10 @@ public class FlugotService {
 		return this.flugotRepository.findFlugotFinalsByAudit(auditId);
 	}
 
+	public List<Flugot> findFlugotByAudit(final Integer auditId) {
+		return this.flugotRepository.findFlugotByAudit(auditId);
+	}
+
 	public List<Flugot> findFlugotByAuditor(final Integer auditorId) {
 		return this.flugotRepository.findFlugotByAuditor(auditorId);
 	}

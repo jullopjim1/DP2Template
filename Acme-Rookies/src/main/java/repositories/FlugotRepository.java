@@ -20,4 +20,7 @@ public interface FlugotRepository extends JpaRepository<Flugot, Integer> {
 
 	@Query("select f from Flugot f where f.auditor.id = ?1")
 	List<Flugot> findFlugotByAuditor(Integer auditorId);
+
+	@Query("select f from Flugot f where f.audit.id = ?1")
+	List<Flugot> findFlugotByAudit(Integer auditId);
 }

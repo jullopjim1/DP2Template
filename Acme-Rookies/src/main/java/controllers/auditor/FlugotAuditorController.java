@@ -59,6 +59,21 @@ public class FlugotAuditorController extends AbstractController {
 
 		return modelAndView;
 	}
+	//List audit
+	@RequestMapping(value = "/listAudit", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int auditId) {
+		ModelAndView modelAndView;
+
+		final List<Flugot> flugots = this.flugotService.findFlugotByAudit(auditId);
+
+		modelAndView = new ModelAndView("flugot/list");
+		modelAndView.addObject("flugots", flugots);
+		modelAndView.addObject("requestURI", "flugot/company/list.do");
+		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return modelAndView;
+
+	}
 
 	//Show---------------------------------------------------------
 
