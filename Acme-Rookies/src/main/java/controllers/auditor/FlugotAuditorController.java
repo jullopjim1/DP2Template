@@ -75,7 +75,7 @@ public class FlugotAuditorController extends AbstractController {
 	}
 
 	//Create--------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 
