@@ -24,6 +24,7 @@ import controllers.AbstractController;
 import domain.Audit;
 import domain.Auditor;
 import domain.Flugot;
+import forms.FlugotForm;
 
 @Controller
 @RequestMapping("/flugot/auditor")
@@ -55,25 +56,10 @@ public class FlugotAuditorController extends AbstractController {
 
 		modelAndView.addObject("flugots", flugots);
 		modelAndView.addObject("flugotService", this.flugotService);
-		modelAndView.addObject("requestURI", "/flugot/auditor/list.do");
+		modelAndView.addObject("requestURI", "flugot/auditor/list.do");
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return modelAndView;
-	}
-	//List audit
-	@RequestMapping(value = "/listAudit", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int auditId) {
-		ModelAndView modelAndView;
-
-		final List<Flugot> flugots = this.flugotService.findFlugotByAudit(auditId);
-
-		modelAndView = new ModelAndView("flugot/list");
-		modelAndView.addObject("flugots", flugots);
-		modelAndView.addObject("requestURI", "flugot/company/list.do");
-		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-
-		return modelAndView;
-
 	}
 
 	//Show---------------------------------------------------------
@@ -97,8 +83,10 @@ public class FlugotAuditorController extends AbstractController {
 
 		final Flugot flugot = this.flugotService.create();
 
-		result = this.createEditModelAndView(flugot);
-		result.addObject("requestURI", "flugot/auditor/create.do");
+		final FlugotForm flugotForm = this.flugotService.construct(flugot);
+
+		result = this.createEditModelAndView(flugotForm);
+		result.addObject("edit", false);
 
 		return result;
 	}
@@ -111,7 +99,10 @@ public class FlugotAuditorController extends AbstractController {
 		final Flugot flugot = this.flugotService.findOne(flugotId);
 		Assert.notNull(flugot);
 
-		result = this.createEditModelAndView(flugot);
+		final FlugotForm flugotForm = this.flugotService.construct(flugot);
+
+		result = this.createEditModelAndView(flugotForm);
+		result.addObject("edit", true);
 
 		return result;
 
@@ -119,56 +110,55 @@ public class FlugotAuditorController extends AbstractController {
 
 	//Save-------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Flugot flugot, final BindingResult binding) {
+	public ModelAndView save(@Valid final FlugotForm flugotForm, final BindingResult binding) {
 		ModelAndView result;
 
+		final Flugot flugot = this.flugotService.deconstruct(flugotForm, binding);
+
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(flugot);
+			result = this.createEditModelAndView(flugotForm);
 		else
 			try {
-				flugot = this.flugotService.reconstruct(flugot, binding);
+				if (flugotForm.getId() != 0)
+					this.flugotService.delete(this.flugotService.findOne(flugotForm.getId()));
 				this.flugotService.save(flugot);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(flugot, "flugot.commit.error");
+				result = this.createEditModelAndView(flugotForm, "flugot.commit.error");
 			}
 		return result;
 	}
-
 	//Delete--------------------------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Flugot flugot, final BindingResult binding) {
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int flugotId) {
 		ModelAndView result;
-		try {
-			this.flugotService.delete(flugot);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(flugot, "flugot.commit.error");
-		}
+		this.flugotService.delete(this.flugotService.findOne(flugotId));
+		result = new ModelAndView("redirect:list.do");
 		return result;
 	}
 
 	//Auxiliary----------------------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Flugot flugot) {
+	protected ModelAndView createEditModelAndView(final FlugotForm flugotForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(flugot, null);
+		result = this.createEditModelAndView(flugotForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Flugot flugot, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final FlugotForm flugotForm, final String messageCode) {
 		final ModelAndView result;
 
 		final Auditor auditor = this.auditorService.findAuditorByUserAcountId(LoginService.getPrincipal().getId());
 		final List<Audit> audits = new ArrayList<>(this.auditService.findAuditsFinalByAuditorId(auditor.getId()));
 
 		result = new ModelAndView("flugot/edit");
-		result.addObject("flugot", flugot);
+		result.addObject("flugotForm", flugotForm);
 		result.addObject("audits", audits);
+		result.addObject("auditor", auditor);
 		result.addObject("message", messageCode);
-		result.addObject("requestURI", "flugot/auditor/edit.do?flugotId=" + flugot.getId());
+		result.addObject("requestURI", "flugot/auditor/edit.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;

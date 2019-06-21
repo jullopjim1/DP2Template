@@ -1,11 +1,8 @@
 
-package domain;
+package forms;
 
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,18 +15,28 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
-@Entity
-@Access(AccessType.PROPERTY)
-public class Flugot extends DomainEntity {
+import domain.Audit;
 
-	//Atributtes------------------------------------------------------------
+public class FlugotForm {
 
+	//Atributes-----------------------------------------
+
+	Integer			id;
 	private String	ticker;
 	private Date	publicationDate;
 	private String	body;
 	private String	picture;
+	private Audit	audit;
 	private boolean	finalMode;
 
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(final Integer id) {
+		this.id = id;
+	}
 
 	@NotBlank
 	public String getTicker() {
@@ -77,24 +84,6 @@ public class Flugot extends DomainEntity {
 
 	public void setFinalMode(final boolean finalMode) {
 		this.finalMode = finalMode;
-	}
-
-
-	//Relationships------------------------------------------------------------------------
-
-	private Auditor	auditor;
-	private Audit	audit;
-
-
-	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	public Auditor getAuditor() {
-		return this.auditor;
-	}
-
-	public void setAuditor(final Auditor auditor) {
-		this.auditor = auditor;
 	}
 
 	@Valid

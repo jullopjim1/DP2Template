@@ -27,16 +27,15 @@
 
 <security:authentication property="principal.username" var="username" />
 <jstl:if
-	test='${flugot.auditor.userAccount.username == username || flugot.id == 0}'>
+	test='${auditor.userAccount.username == username || edit == false}'>
 	<security:authorize access="hasRole('AUDITOR')">
 		<div>
 
-			<form:form action="${requestURI}" modelAttribute="flugot">
+			<form:form action="${requestURI}" modelAttribute="flugotForm">
 				
 				<form:hidden path="id"/>
-				<form:hidden path="version"/>
-				<form:hidden path="auditor"/>
-
+				<form:hidden path="ticker"/>
+				
 				<fieldset>
 					<acme:textarea code="flugot.body" path="body" />
 					<br/>
@@ -46,7 +45,7 @@
 				</fieldset>
 
 
-		<jstl:if test="${flugot.finalMode == false}">
+		<jstl:if test="${flugotForm.finalMode == false}">
 
 				<div>
 					<form:label path="finalMode">
@@ -70,17 +69,10 @@
 	</jstl:if>
 	
 
-				<jstl:if test="${flugot.finalMode == false || flugot.id == 0}">
+				<jstl:if test="${flugotForm.finalMode == false || edit == false}">
 
 				<acme:submit name="save" code="flugot.save"/>
 
-				<jstl:if test="${flugot.id != 0}">
-				
-					<input type="submit" name="delete"
-						value="<spring:message code="flugot.delete" />"
-						onclick="return confirm('<spring:message code="flugot.confirm.delete" />')" />&nbsp;
-				</jstl:if>
-				
 				</jstl:if>
 			</form:form>
 			<acme:cancel url="flugot/auditor/list.do"
@@ -95,7 +87,7 @@
 	</security:authorize>
 
 </jstl:if>
-<jstl:if test='${flugot.auditor.userAccount.username != username && flugot.id != 0}'>
+<jstl:if test='${auditor.userAccount.username != username && edit != true}'>
 	<h1>
 		<b><spring:message code="flugot.permissions"></spring:message></b>
 	</h1>

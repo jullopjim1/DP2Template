@@ -54,13 +54,13 @@
 
 
 		<!-- flugot -->
-		<security:intercept-url pattern="/flugot/auditor/listAudit.do"
-			access="hasRole('AUDITOR')" />
 		<security:intercept-url pattern="/flugot/auditor/list.do"
-			access="hasRole('AUDITOR')" />
-		<security:intercept-url pattern="/flugot/auditor/create.do"
+			access="hasAnyRole('AUDITOR')" />
+			<security:intercept-url pattern="/flugot/auditor/create.do"
 			access="hasRole('AUDITOR')" />
 		<security:intercept-url pattern="/flugot/auditor/edit.do"
+			access="hasRole('AUDITOR')" />
+			<security:intercept-url pattern="/flugot/auditor/delete.do"
 			access="hasRole('AUDITOR')" />
 		<security:intercept-url pattern="/flugot/auditor/show.do"
 			access="hasAnyRole('AUDITOR', 'COMPANY')" />
@@ -204,8 +204,6 @@
 			access="hasRole('ROOKIE')" />
 
 		<!-- COMPANY -->
-		<security:intercept-url pattern="/flugots/company/list.do"
-			access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/application/company/list.do"
 			access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/application/company/edit.do"

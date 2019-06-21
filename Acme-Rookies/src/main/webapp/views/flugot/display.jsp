@@ -29,9 +29,13 @@
 
 
 				
+<security:authorize access="hasRole('AUDITOR')">
+<acme:cancel url="flugot/auditor/list.do" code="flugot.back" />
+</security:authorize>
 
-<acme:cancel url="welcome/index.do" code="audit.backTo" />
-
+<security:authorize access="hasRole('COMPANY')">
+<acme:cancel url="flugot/company/list.do?auditId=${flugot.audit.id}" code="flugot.back" />
+</security:authorize>
 
 
 

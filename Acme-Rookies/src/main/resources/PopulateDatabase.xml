@@ -1807,41 +1807,59 @@
 	<!-- Flugot -->
 
 	<bean id="flugot1" class="domain.Flugot">
-		<property name="ticker" value="190610-AAAAA" />
-		<property name="publicationDate" value="06/10/2019" />
+		<property name="ticker" value="190218-AAAAA" />
 		<property name="body" value="TEST 1" />
 		<property name="picture"
 			value="http://raulperez.tieneblog.net/wp-content/uploads/2015/09/tux.png" />
-		<property name="finalMode" value="true" />
-		<property name="auditor" ref="auditor2" />
-		<property name="audit" ref="audit2" />
+		<property name="finalMode" value="false" />
+		<property name="auditor" ref="auditor1" />
+		<property name="audit" ref="audit1" />
 	</bean>
 
 	<bean id="flugot2" class="domain.Flugot">
-		<property name="ticker" value="190510-AAAAA" />
-		<property name="publicationDate" value="05/10/2019" />
+		<property name="ticker" value="190101-AAAAA" />
+		<property name="publicationDate" value="01/01/2019" />
 		<property name="body" value="TEST 2" />
 		<property name="finalMode" value="true" />
-		<property name="auditor" ref="auditor2" />
+		<property name="auditor" ref="auditor1" />
 		<property name="audit" ref="audit2" />
 	</bean>
 
 	<bean id="flugot3" class="domain.Flugot">
-		<property name="ticker" value="190116-AAAAA" />
-		<property name="publicationDate" value="04/10/2019" />
+		<property name="ticker" value="190217-AAAAA" />
 		<property name="body" value="TEST 3" />
+		<property name="picture"
+			value="http://raulperez.tieneblog.net/wp-content/uploads/2015/09/tux.png" />
+		<property name="finalMode" value="false" />
+		<property name="auditor" ref="auditor2" />
+		<property name="audit" ref="audit1" />
+	</bean>
+
+	<bean id="flugot4" class="domain.Flugot">
+		<property name="ticker" value="190216-AAAAA" />
+		<property name="publicationDate" value="02/16/2019" />
+		<property name="body" value="TEST 4" />
+		<property name="finalMode" value="true" />
+		<property name="auditor" ref="auditor2" />
+		<property name="audit" ref="audit2" />
+	</bean>
+
+	<bean id="flugot5" class="domain.Flugot">
+		<property name="ticker" value="190416-AAAAA" />
+		<property name="publicationDate" value="06/16/2019" />
+		<property name="body" value="TEST 5" />
 		<property name="finalMode" value="true" />
 		<property name="auditor" ref="auditor1" />
 		<property name="audit" ref="audit1" />
 	</bean>
 
-	<bean id="flugot4" class="domain.Flugot">
-		<property name="ticker" value="190110-AAAAA" />
-		<property name="publicationDate" value="03/10/2019" />
-		<property name="body" value="TEST 4" />
+	<bean id="flugot6" class="domain.Flugot">
+		<property name="ticker" value="190516-AAAAA" />
+		<property name="publicationDate" value="05/16/2019" />
+		<property name="body" value="TEST 6" />
 		<property name="finalMode" value="true" />
-		<property name="auditor" ref="auditor1" />
-		<property name="audit" ref="audit1" />
+		<property name="auditor" ref="auditor2" />
+		<property name="audit" ref="audit2" />
 	</bean>
 
 </beans>

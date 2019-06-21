@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 import repositories.FlugotRepository;
 import security.LoginService;
 import domain.Flugot;
+import forms.FlugotForm;
 
 @Service
 @Transactional
@@ -44,6 +45,7 @@ public class FlugotService {
 		final Flugot flugot = new Flugot();
 
 		flugot.setAuditor(this.auditorService.findAuditorByUserAcountId(LoginService.getPrincipal().getId()));
+		flugot.setTicker(this.isUniqueTicker(flugot));
 		flugot.setFinalMode(false);
 
 		return flugot;
@@ -63,10 +65,8 @@ public class FlugotService {
 		this.serviceUtils.checkAuthority("AUDITOR");
 		this.serviceUtils.checkIdSave(flugot);
 
-		if (flugot.isFinalMode() == true) {
+		if (flugot.isFinalMode() == true)
 			flugot.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
-			flugot.setTicker(this.isUniqueTicker(flugot));
-		}
 
 		final Flugot saved = this.flugotRepository.save(flugot);
 		return saved;
@@ -85,7 +85,7 @@ public class FlugotService {
 
 	@SuppressWarnings("deprecation")
 	public String generateTicker(final Flugot flugot) {
-		final Date date = flugot.getPublicationDate();
+		final Date date = new Date(System.currentTimeMillis() - 100);
 		final Integer s1 = date.getDate();
 		String day = s1.toString();
 		if (day.length() == 1)
@@ -128,12 +128,36 @@ public class FlugotService {
 		return this.flugotRepository.findFlugotFinalsByAudit(auditId);
 	}
 
-	public List<Flugot> findFlugotByAudit(final Integer auditId) {
-		return this.flugotRepository.findFlugotByAudit(auditId);
-	}
-
 	public List<Flugot> findFlugotByAuditor(final Integer auditorId) {
 		return this.flugotRepository.findFlugotByAuditor(auditorId);
+	}
+
+	public FlugotForm construct(final Flugot flugot) {
+		final FlugotForm res = new FlugotForm();
+
+		res.setId(flugot.getId());
+		res.setTicker(flugot.getTicker());
+		res.setPublicationDate(flugot.getPublicationDate());
+		res.setBody(flugot.getBody());
+		res.setPicture(flugot.getPicture());
+		res.setAudit(flugot.getAudit());
+		res.setFinalMode(flugot.isFinalMode());
+
+		return res;
+	}
+
+	public Flugot deconstruct(final FlugotForm form, final BindingResult binding) {
+		final Flugot res = this.create();
+
+		res.setId(form.getId());
+		res.setTicker(form.getTicker());
+		res.setPublicationDate(form.getPublicationDate());
+		res.setBody(form.getBody());
+		res.setPicture(form.getPicture());
+		res.setAudit(form.getAudit());
+		res.setFinalMode(form.isFinalMode());
+
+		return res;
 	}
 
 	public int diferenciaMeses(final int flugotId) {
@@ -152,41 +176,10 @@ public class FlugotService {
 
 				final int start = (now.getYear() + 1900) * 12 + now.getMonth();
 				final int end = (fechaFlugot.getYear() + 1900) * 12 + fechaFlugot.getMonth();
-				System.out.println("start: " + start);
-				System.out.println("end: " + end);
 				meses = start - end;
 			}
 		}
 
-		System.out.println("numero de meses: " + meses);
 		return meses;
 	}
-
-	public Flugot reconstruct(final Flugot flugot, final BindingResult bindingResult) {
-		Flugot result = this.create();
-
-		if (flugot.getId() == 0) {
-
-			result.setBody(flugot.getBody());
-			result.setPicture(flugot.getPicture());
-			result.setFinalMode(flugot.isFinalMode());
-			result.setAudit(flugot.getAudit());
-
-		}
-
-		else {
-			result = this.findOne(flugot.getId());
-
-			result.setBody(flugot.getBody());
-			result.setPicture(flugot.getPicture());
-			result.setFinalMode(flugot.isFinalMode());
-			result.setAudit(flugot.getAudit());
-
-		}
-
-		//this.validator.validate(flugot, bindingResult);
-
-		return result;
-	}
-
 }

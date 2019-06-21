@@ -21,7 +21,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-
+<acme:out code="audit.auditor" value="${audit.auditor.userAccount.username}" />
 <acme:out code="audit.moment" value="${audit.moment}" />
 <acme:out code="audit.score" value="${audit.score}" />
 <acme:out code="audit.finalMode" value="${audit.finalMode}" />

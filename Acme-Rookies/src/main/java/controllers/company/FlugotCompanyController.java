@@ -53,17 +53,4 @@ public class FlugotCompanyController extends AbstractController {
 
 	}
 
-	//-----------------Display-------------------------
-
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int flugotId) {
-		final ModelAndView result = new ModelAndView("flugot/display");
-
-		final Flugot flugot = this.flugotService.findOne(flugotId);
-
-		result.addObject("flugot", flugot);
-		result.addObject("banner", this.configurationService.findOne().getBanner());
-
-		return result;
-	}
 }
