@@ -21,7 +21,6 @@
 
 
 
-
 <display:table name="flugots" id="flugot" requestURI="${RequestURI}"
 	pagesize="${numResults}" class="displaytag">
 
@@ -29,7 +28,7 @@
 	<security:authorize access="hasRole('AUDITOR')">
 		<security:authentication property="principal.username" var="username" />
 
-		<jstl:if test='${flugot.auditor.userAccount.username == username}'>
+		<jstl:if test='${flugots.get(0).auditor.userAccount.username == username}'>
 
 
 			<%--  La columna que va a la vista edit de las miscellaneousRecord --%>
@@ -138,3 +137,4 @@
 <br />
 <a href="welcome/index.do"> <spring:message code="flugot.back" />
 </a>
+

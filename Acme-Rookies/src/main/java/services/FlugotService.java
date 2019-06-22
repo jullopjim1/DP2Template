@@ -68,12 +68,15 @@ public class FlugotService {
 		if (flugot.isFinalMode() == true)
 			flugot.setPublicationDate(new Date(System.currentTimeMillis() - 1000));
 
+		if (flugot.getPicture().isEmpty())
+			flugot.setPicture(null);
+
 		final Flugot saved = this.flugotRepository.save(flugot);
 		return saved;
 	}
 
 	public void delete(final Flugot flugot) {
-		Assert.notNull(flugot);
+		Assert.isTrue(flugot.isFinalMode() == false);
 		this.serviceUtils.checkActor(flugot.getAuditor());
 		this.serviceUtils.checkAuthority("AUDITOR");
 		this.serviceUtils.checkIdSave(flugot);

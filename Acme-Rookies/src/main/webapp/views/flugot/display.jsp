@@ -20,13 +20,17 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<jstl:if test="${flugot.picture != null }">
+<img src="${flugot.picture}" height="100px" width="100px"/>
+</jstl:if>
 
-<img src="${flugot.picture}" height="100px" width="100px" />
 <acme:out code="flugot.ticker" value="${flugot.ticker}" />
 <acme:out code="flugot.publicationDate" value="${flugot.publicationDate}" />
 <acme:out code="flugot.body" value="${flugot.body}" />
-<acme:out code="flugot.finalMode" value="${flugot.finalMode}" />
 
+<security:authorize access="hasRole('AUDITOR')">
+<acme:out code="flugot.finalMode" value="${flugot.finalMode}" />
+</security:authorize>
 
 				
 <security:authorize access="hasRole('AUDITOR')">

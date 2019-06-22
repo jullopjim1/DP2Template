@@ -98,6 +98,8 @@ public class FlugotAuditorController extends AbstractController {
 
 		final Flugot flugot = this.flugotService.findOne(flugotId);
 		Assert.notNull(flugot);
+		Assert.isTrue(flugot.isFinalMode() == false);
+		Assert.isTrue(flugot.getAuditor().getUserAccount().getId() == LoginService.getPrincipal().getId());
 
 		final FlugotForm flugotForm = this.flugotService.construct(flugot);
 
