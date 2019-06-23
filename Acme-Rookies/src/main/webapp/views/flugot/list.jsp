@@ -100,20 +100,6 @@
 	</display:column>
 
 	<security:authorize access="hasRole('AUDITOR')">
-		<display:column titleKey="flugot.finalMode">
-			<jstl:if test="${flugot.finalMode == false }">
-				<img
-					src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX7656540.jpg"
-					height="50px" width="50px" />
-			</jstl:if>
-			<jstl:if test="${flugot.finalMode != false }">
-				<img
-					src="http://www.nortedesantander.gov.co/Portals/0/xBlog/uploads/2016/10/19/stock-footage-stamp-final.jpg"
-					height="50px" width="50px" />
-			</jstl:if>
-		</display:column>
-
-
 		<display:column>
 			<jstl:if test="${flugot.finalMode == false }">
 
