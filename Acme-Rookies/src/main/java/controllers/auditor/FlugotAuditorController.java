@@ -70,6 +70,8 @@ public class FlugotAuditorController extends AbstractController {
 
 		final Flugot flugot = this.flugotService.findOne(flugotId);
 
+		Assert.isTrue(flugot.getAuditor().getUserAccount().getId() == LoginService.getPrincipal().getId() || flugot.getAudit().getPosition().getCompany().getUserAccount().getId() == LoginService.getPrincipal().getId());
+
 		result.addObject("flugot", flugot);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 

@@ -52,7 +52,7 @@ public class Flugot extends DomainEntity {
 
 	@SafeHtml
 	@NotBlank
-	@Length(min = 0, max = 100)
+	@Length(min = 1, max = 100)
 	public String getBody() {
 		return this.body;
 	}
