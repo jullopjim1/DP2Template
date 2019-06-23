@@ -28,7 +28,8 @@
 	<security:authorize access="hasRole('AUDITOR')">
 		<security:authentication property="principal.username" var="username" />
 
-		<jstl:if test='${flugots.get(0).auditor.userAccount.username == username}'>
+		<jstl:if
+			test='${flugots.get(0).auditor.userAccount.username == username}'>
 
 
 			<%--  La columna que va a la vista edit de las miscellaneousRecord --%>
@@ -115,8 +116,10 @@
 
 		<display:column>
 			<jstl:if test="${flugot.finalMode == false }">
-				<a href="flugot/auditor/delete.do?flugotId=${flugot.id }"> <spring:message
-						code="flugot.delete" />
+
+				<a href="flugot/auditor/delete.do?flugotId=${flugot.id }"
+					onclick="return confirm('<spring:message code="flugot.confirm.delete" />')">
+					<spring:message code="flugot.delete" />
 				</a>
 
 			</jstl:if>

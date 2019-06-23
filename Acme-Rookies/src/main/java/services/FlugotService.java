@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.FlugotRepository;
 import security.LoginService;
@@ -34,9 +33,6 @@ public class FlugotService {
 
 	@Autowired
 	private ServiceUtils		serviceUtils;
-
-	@Autowired(required = false)
-	private Validator			validator;
 
 
 	//CRUD--------------------------------------------------------
